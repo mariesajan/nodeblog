@@ -1,0 +1,32 @@
+extends layout
+block content
+    if errors
+        each error in errors
+            p #{error.msg}
+    .container
+        .posts
+            h1(align='center') #{title}
+            form(action='/posts/addPostForm',method='post',enctype='multipart/form-data')
+              | Title:
+              input(type='text', name='postTitle',value=postTitle)
+              br
+              | Category:
+              select(name='category')
+                 for category in categories
+                    option(value= category.categoryTitle) #{category.categoryTitle}
+              br
+              | Body:
+              textarea(type='text', name='postBody',value=postBody)
+              br
+              | Main image:
+              input(type='file', name='imageFile',id='imageFile')
+              br
+              | Author:
+              select(name='author')
+                  option(value='Marie Sajan') Marie Sajan
+                  option(value='Dennis Philip') Dennis Philip
+              br
+              input(type='submit', value='Save',align ="")
+            script(src='/ckeditor/ckeditor.js')
+            script
+                | CKEDITOR.replace('postBody')

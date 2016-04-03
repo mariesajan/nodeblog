@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .container
+        img(src='/images/myLogo.png')
+        != messages()
+        .header
+            a.title(href='/') Home
+            a.title(href='/posts/addPost') Add Post
+            a.title(href='/posts/addCategory') Add Category
+        block content
+
+        footer NodeBlog &copy; 2015

@@ -1,0 +1,45 @@
+extends layout
+
+block content
+    if errors
+        each error in errors
+            p #{error.msg}
+    .container
+        br
+        br
+
+        if posts
+            .posts
+                each post in posts
+                    p.title Published #{post.title} on #{moment(post.date).format("MM-DD-YYYY")} in Category
+                    a.posts(href='/titleDetails/#{post.category}') #{post.category}
+                    p.title by #{post.author}
+                    img.postImage(src='/images/uploads/#{post.mainImage}',width='100%',style='margin-left: 0px')
+                    p.postBody
+                        !=post.postBody
+
+                    br
+                    if post.comments
+                        h2 Comments Posted
+                        .container
+                            .comments
+                                each comment in post.comments
+                                    b Added by #{comment.name}
+                                    p #{comment.commentBody}
+
+
+                    h1      ADD COMMENT
+                    h1(align='center') #{title}
+                    form(action='/posts/addCommentForm/#{post._id}',method='post')
+                      | Name:
+                      input(type='text', name='name',value=name)
+                      br
+                      | Email:
+                      input(type='text', name='email',value=email)
+                      br
+                      | Body:
+                      textarea(type='text', name='commentBody',value=commentBody)
+                      br
+                      input.btn(type='submit', value='Add Comment')
+        else
+            p(align='center') There are no posts
